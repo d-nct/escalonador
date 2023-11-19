@@ -1,11 +1,10 @@
-/*
-Arquivo: _config.h
-
-Aqui estão as principais configurações (regras de negócio) do simulador de escalonador.
-
-Unidades:
-- tempo: milissegundos
-*/
+/**
+ * @file _config.h
+ *
+ * @brief Aqui estão as principais configurações (regras de negócio) do simulador de escalonador.
+ * Unidades:
+ * - tempo: milissegundos
+ */
 
 #ifndef CONFIG_H
 #define CONFIG_H

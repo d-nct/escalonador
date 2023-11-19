@@ -1,9 +1,9 @@
-/*
-Arquivo: _types.h
+/**
+ * @file _types.h
+ *
+ * @brief Aq estão tipos declarados a serem usados no programa.
+ */
 
-Aq estão tipos declarados a serem usados no programa.
-
-*/
 #ifndef TYPES_H
 #define TYPES_H
 
