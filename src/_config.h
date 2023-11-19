@@ -9,6 +9,16 @@
 #ifndef CONFIG_H
 #define CONFIG_H
 
+/* Sessão de Importações
+   --------------------- */
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
+
+/* Sessão de Definições
+   -------------------- */
+
 /* Configurações gerais do Escalonador */
 #define MAX_PROCESSOS               50  
 #define QUANTUM                                   
