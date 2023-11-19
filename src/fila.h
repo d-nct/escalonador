@@ -26,6 +26,22 @@ typedef struct {
  * 
  * @param fila é um ponteiro vazio para um objeto do tipo Fila.
  */
-void initFila(Fila* fila);
+void filaInit(Fila* fila);
+
+/**
+ * @brief Insere um elemento na fila.
+ * 
+ * @param fila é um ponteiro para a fila.
+ * @param processo é o número do processo a ser inserido na fila.
+ */
+void filaInsere(Fila* fila, int processo);
+
+/**
+ * @brief Remove o primeiro elemento da fila.
+ * 
+ * @param fila é um ponteiro para a fila.
+ * @return o primeiro elemento que foi removido.
+ */
+int filaRemove(Fila* fila);
 
 #endif
