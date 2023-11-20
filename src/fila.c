@@ -31,7 +31,7 @@ void filaInsere(Fila* fila, int processo) {
     } else {
         /* caso fila não vazia */
         fila->fim->prox = novo; /* linka na fila */
-        fila->fim = novo /* atualiza a ref do fim para o novo */
+        fila->fim = novo; /* atualiza a ref do fim para o novo */
     }
 }
 
@@ -46,8 +46,8 @@ int filaRemove(Fila* fila) {
     }
 
     /* pega o primeiro cara */
-    tmp = fila->primeiro; /* para futura remoção*/
-    primeiro = fila->primeiro->processo;
+    tmp = fila->inicio; /* para futura remoção*/
+    primeiro = fila->inicio->processo;
 
     /* atualiza a ref do inicio */
     fila->inicio = fila->inicio->prox;

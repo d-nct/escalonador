@@ -19,8 +19,11 @@
 /* Sessão de Definições
    -------------------- */
 
+/* Para facilitar a compreensão */
+#define FOREVER                           while(1)
+
 /* Configurações gerais do Escalonador */
-#define MAX_PROCESSOS               50  
+#define MAX_PROCESSOS                     50  
 #define QUANTUM                                   
 
 /* Define o tempo necessário para cada tipo de I/O */

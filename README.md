@@ -48,11 +48,11 @@ O Round Robin com feedback busca equilibrar a justiça e a eficiência na execu�
 
 # Esqueleto e Estrutura Hierárquica
 
-| Nome do Arquivo | Conteúdo | Depende de |
+| Nome do Arquivo | Conteúdo | Inclui |
 | :-------------- | :------- | :--------: |
-| _config.h | Configurações gerais do simulador | |
+| \_config.h | Configurações gerais do simulador | |
 | main.c | Arquivo principal, que organiza a execução do simulador | |
-| _types.h | Definição dos tipos usados pelo simulador | |
+| \_types.h | Definição dos tipos usados pelo simulador | |
 
 # Exemplo de Uso
 TODO

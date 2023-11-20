@@ -7,6 +7,10 @@
 #ifndef TYPES_H
 #define TYPES_H
 
+#include "_config.h"
+
+typedef int bool_t;
+
 /* sobre o IO */
 typedef enum {
     DISCO,

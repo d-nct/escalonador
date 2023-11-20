@@ -7,6 +7,8 @@
 #ifndef FILA_H
 #define FILA_H
 
+#include "_config.h"
+
 /* Definição da estrutura do nó da fila */
 typedef struct _No {
     int processo; /* PID */
