@@ -62,3 +62,6 @@ int filaRemove(Fila* fila) {
 
     return primeiro;
 }
+int estaVazia(Fila *fila) {
+    return (fila->inicio == NULL) ? 1 : 0; // Retorna 1 se estiver vazia e 0 se estiver com pelo menos um processo
+}

@@ -46,4 +46,6 @@ void filaInsere(Fila* fila, int processo);
  */
 int filaRemove(Fila* fila);
 
+int estaVazia(Fila *fila);
+
 #endif
