@@ -19,8 +19,9 @@ typedef enum {
 } IO; 
 
 typedef struct  {
-    int inicio;
-    IO tipo;
+    int inicio; // inicio do tempo interno do processo em que começa a operação de I/O
+    IO tipo; // tipo da operação de I/O
+    int tempo_restante; // tempo restante para a conclusão da operação de I/O
 } OperacaoIO;
 
 /* Status do processo, sem swapping */
@@ -29,7 +30,7 @@ typedef enum {
     PRONTO,    /* aguardando execução */
     EXECUCAO,  /* executando */
     SAIDA,     /* terminada execução */
-    BLOQUEADO, /* aguardando IO */
+    BLOQUEADO, /* aguardando I/O */
 } Status;
 
 /* Tipos sobre o Process Control Block */
@@ -39,7 +40,7 @@ typedef struct {
     int inicio;    
     int fim;      
     int tempo_cpu; //para tempo de serviço, a ser incrementado sempre que status=EXECUCAO
-    OperacaoIO* io;     // Ponteiro para lista de operações de I/O do processo
+    OperacaoIO* io;     // Ponteiro para lista de operações de I/O do processo, se não tiver será NULL
     int numOperacoesIO; // Número total de operações de I/O realizadas pelo processo 
 
 } PCB;
