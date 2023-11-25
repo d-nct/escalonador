@@ -12,7 +12,7 @@
 typedef int bool_t;
 
 /* sobre o IO */
-typedef struct IO {
+typedef enum IO {
     DISCO,
     FITA,
     IMPRESSORA,
