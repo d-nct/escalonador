@@ -12,16 +12,16 @@
 typedef int bool_t;
 
 /* sobre o IO */
-typedef enum IO {
+typedef enum {
     DISCO,
     FITA,
-    IMPRESSORA,
-} IO;
+    IMPRESSORA
+} IO; 
 
 typedef struct  {
     int inicio;
     IO tipo;
-} process_IO;
+} OperacaoIO;
 
 /* Status do processo, sem swapping */
 typedef enum {
@@ -36,11 +36,12 @@ typedef enum {
 typedef struct {
     int PID;
     Status status;
-    int inicio;    /* para tempo de execução */
-    int fim;       /* para tempo de execução */
-    int tempo_cpu; /* para tempo de serviço, a ser incrementado sempre que status=EXECUCAO
-    
-     */
+    int inicio;    
+    int fim;      
+    int tempo_cpu; //para tempo de serviço, a ser incrementado sempre que status=EXECUCAO
+    OperacaoIO* io;     // Ponteiro para lista de operações de I/O do processo
+    int numOperacoesIO; // Número total de operações de I/O realizadas pelo processo 
+
 } PCB;
 
 #endif
