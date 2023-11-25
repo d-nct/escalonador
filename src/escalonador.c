@@ -4,6 +4,8 @@
  * @brief Contém a implementação do escalonador round robin.
  */
 
+int contador = 0;
+
     // Na inicialização todos os processos novos entram na fila de alta prioridade
 
     /*  Criar a função principal de escalonador
