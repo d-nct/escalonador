@@ -7,7 +7,16 @@
 #ifndef ESCALONADOR_H
 #define ESCALONADOR_H
 
-#inlcude "_types.h"
+#include "_types.h"
+#include "fila.h"
+
+Fila alta;
+Fila baixa;
+Fila disco;
+Fila fita;
+Fila impressora;
+
+void escalona();
 
 /* Métodos do Escalonador 
    ---------------------- */

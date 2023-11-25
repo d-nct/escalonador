@@ -13,7 +13,6 @@
    --------------------- */
 #include <stdio.h>
 #include <stdlib.h>
-#include <time.h>
 
 
 /* Sessão de Definições
@@ -24,7 +23,7 @@
 
 /* Configurações gerais do Escalonador */
 #define MAX_PROCESSOS                     50  
-#define QUANTUM                                   
+#define QUANTUM                           10                            
 
 /* Define o tempo necessário para cada tipo de I/O */
 #define IO_DISCO_TEMPO              

@@ -31,6 +31,12 @@
 
 #include "escalonador.h"
 
+void escalona() {
+
+
+    
+}
+
 void roundRobin() {
     PCB processo;
 

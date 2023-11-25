@@ -18,12 +18,6 @@ typedef enum {
     IMPRESSORA,
 } IO_t;
 
-/* Serão apenas duas filas de prioridade */
-typedef enum {
-    BAIXA,
-    ALTA,
-} Prioridade_t;
-
 /* Status do processo, sem swapping */
 typedef enum {
     NOVO,      /* acabou de chegar, precisa ser alocado */
@@ -31,17 +25,15 @@ typedef enum {
     EXECUCAO,  /* executando */
     SAIDA,     /* terminada execução */
     BLOQUEADO, /* aguardando IO */
-} Status_t;
+} Status;
 
 /* Tipos sobre o Process Control Block */
 typedef struct {
     int PID;
-    int PPID;
-    Prioridade_t prioridade;
-    Status_t status;
-    clock_t inicio;    /* para tempo de execução */
-    clock_t fim;       /* para tempo de execução */
-    clock_t tempo_cpu; /* para tempo de serviço, a ser incrementado sempre que status=EXECUCAO */
+    Status status;
+    int inicio;    /* para tempo de execução */
+    int fim;       /* para tempo de execução */
+    int tempo_cpu; /* para tempo de serviço, a ser incrementado sempre que status=EXECUCAO */
 } PCB;
 
 #endif

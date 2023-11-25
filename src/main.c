@@ -1,8 +1,10 @@
-/* TO DO:   -Fila de alta prioridade
-            -Fila de média prioridade
-            -Fila de baixa prioridade
+#include "_config.h"
+#include "escalonador.h"
+#include "fila.h"
 
-            -Fila de Disco
-            -Fila de Impressora
-            -Fila de Fita   
- */
+
+int main() {
+
+    
+    return 0; 
+}
