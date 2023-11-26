@@ -15,14 +15,14 @@ typedef int bool_t;
 typedef enum {
     DISCO,
     FITA,
-    IMPRESSORA,
-} IO_t;
+    IMPRESSORA
+} IO; 
 
-/* Serão apenas duas filas de prioridade */
-typedef enum {
-    BAIXA,
-    ALTA,
-} Prioridade_t;
+typedef struct  {
+    int inicio; // inicio do tempo interno do processo em que começa a operação de I/O
+    IO tipo; // tipo da operação de I/O
+    int tempo_restante; // tempo restante para a conclusão da operação de I/O
+} OperacaoIO;
 
 /* Status do processo, sem swapping */
 typedef enum {
@@ -30,18 +30,19 @@ typedef enum {
     PRONTO,    /* aguardando execução */
     EXECUCAO,  /* executando */
     SAIDA,     /* terminada execução */
-    BLOQUEADO, /* aguardando IO */
-} Status_t;
+    BLOQUEADO, /* aguardando I/O */
+} Status;
 
 /* Tipos sobre o Process Control Block */
 typedef struct {
     int PID;
-    int PPID;
-    Prioridade_t prioridade;
-    Status_t status;
-    clock_t inicio;    /* para tempo de execução */
-    clock_t fim;       /* para tempo de execução */
-    clock_t tempo_cpu; /* para tempo de serviço, a ser incrementado sempre que status=EXECUCAO */
+    Status status;
+    int inicio;    
+    int fim;      
+    int tempo_cpu; //para tempo de serviço, a ser incrementado sempre que status=EXECUCAO
+    OperacaoIO* io;     // Ponteiro para lista de operações de I/O do processo, se não tiver será NULL
+    int numOperacoesIO; // Número total de operações de I/O realizadas pelo processo 
+
 } PCB;
 
 #endif

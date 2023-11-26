@@ -8,13 +8,13 @@
 #define FILA_H
 
 #include "_config.h"
+#include "_types.h"
 
 /* Definição da estrutura do nó da fila */
 typedef struct _No {
-    int processo; /* PID */
+    PCB* processo; /* Ponteiro para o PCB */
     struct _No* prox;
 } No;
-
 /* Definição da estrutura da fila */
 typedef struct {
     No* inicio; 
@@ -36,7 +36,7 @@ void filaInit(Fila* fila);
  * @param fila é um ponteiro para a fila.
  * @param processo é o número do processo a ser inserido na fila.
  */
-void filaInsere(Fila* fila, int processo);
+void filaInsere(Fila* fila, PCB* processo) 
 
 /**
  * @brief Remove o primeiro elemento da fila.
@@ -44,6 +44,8 @@ void filaInsere(Fila* fila, int processo);
  * @param fila é um ponteiro para a fila.
  * @return o primeiro elemento que foi removido.
  */
-int filaRemove(Fila* fila);
+PCB* filaRemove(Fila* fila);
+
+int estaVazia(Fila *fila);
 
 #endif
