@@ -15,6 +15,9 @@ Fila baixa;
 Fila disco;
 Fila fita;
 Fila impressora;
+Fila finalizados; // cimitério de processos
+
+int tempoSistema; // conta
 
 void escalona();
 
