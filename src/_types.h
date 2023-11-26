@@ -18,29 +18,20 @@ typedef enum {
     IMPRESSORA
 } IO; 
 
-typedef struct  {
+typedef struct OperacaoIO{
     int inicio; // inicio do tempo interno do processo em que começa a operação de I/O
     IO tipo; // tipo da operação de I/O
     int tempo_restante; // tempo restante para a conclusão da operação de I/O
+    struct OperacaoIO* prox; // para encadear as operações em uma lista na PCB
 } OperacaoIO;
-
-/* Status do processo, sem swapping */
-typedef enum {
-    NOVO,      /* acabou de chegar, precisa ser alocado */
-    PRONTO,    /* aguardando execução */
-    EXECUCAO,  /* executando */
-    SAIDA,     /* terminada execução */
-    BLOQUEADO, /* aguardando I/O */
-} Status;
 
 /* Tipos sobre o Process Control Block */
 typedef struct {
     int PID;
-    Status status;
     int inicio;    
     int fim;      
-    int tempo_cpu; //para tempo de serviço, a ser incrementado sempre que status=EXECUCAO
     int tempo_restante; // tempo que falta para o processo terminar 
+    int tempo_cpu;
     int tempo_interno;
     OperacaoIO* io;   // Ponteiro para lista de operações de I/O do processo, se não tiver será NULL
     int numOperacoesIO; // Número total de operações de I/O realizadas pelo processo 

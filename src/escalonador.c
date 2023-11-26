@@ -15,7 +15,18 @@
         - Os Processos que sofreram preempção – retornam na fila de baixa prioridade.
     */
 
+ 
 
+/*  
+
+Formato do arquivo:
+
+
+1 80 17-1 30-2 60-1 76-3 / 34 50 5-2 20-1 30-3 49-2
+
+
+
+*/
 
 #include "escalonador.h"
 
@@ -26,12 +37,18 @@ void rrNovoProcesso(PCB novo){
 
     */
 
-    //filaInsere(&alta, &novo);
+    filaInsere(&alta, &novo);
 }
 
 
-void escalona(PCB* processo) {
-    // Verifica se o tempo processo acabou
+void escalona(PCB* processo, Fila* fila) {
+    if(processo->tempo_interno == processo->tempo_cpu){
+        processo = filaRemove(&fila);
+        processo->fim = tempoSistema;
+    }
+
+
+    // Verifica se o QUANTUM acabou
     if(processo->tempo_restante == 0){
         processo = filaRemove(&alta);
         filaInsere(&baixa, processo);
@@ -42,8 +59,30 @@ void escalona(PCB* processo) {
         if(processo->io->inicio == processo->tempo_interno){
             processo = filaRemove(&alta);
             // switch case pra ver qual IO e por no final da fila com processo_atual->io->tipo
-            // dentro do inserir na fila de I/O: tempo restante do processo vai ser o tempo que ele fica fazendo io
+            switch(processo->io->tipo){
+                case DISCO:
+                    filaInsere(&disco,processo);
+                    processo->tempo_restante = IO_DISCO_TEMPO; 
+                    processo->io = processo->io->prox;
+                break;
 
+                case FITA:
+                    filaInsere(&fita,processo);
+                    processo->tempo_restante = IO_FITA_TEMPO;
+                    processo->io = processo->io->prox;
+                break;
+
+                case IMPRESSORA: 
+                    filaInsere(&impressora,processo);
+                    processo->tempo_restante = IO_IMPRESSORA_TEMPO;
+                    processo->io = processo->io->prox;
+
+                break;
+
+                default:
+
+            }
+        
         }
 
     }
@@ -68,13 +107,13 @@ void roundRobin() {
             // verifica se há algum processo na fila de alta prioridade 
             if(!estaVazia(&alta)) {
                processo_atual = alta.inicio;
-               escalona(processo_atual);
+               escalona(processo_atual, &alta);
                
             } 
             // Fila de baixa
             else if(!estaVazia(&baixa)){
                 processo_atual = baixa.inicio;
-                escalona(processo_atual);
+                escalona(processo_atual, &baixa);
             }
 
            timer_processo++;
@@ -83,6 +122,8 @@ void roundRobin() {
            timer_impressora++;
 
         }
+
+        tempoSistema++;
 
         printf("Não há processos a serem escalonados.\n");
         

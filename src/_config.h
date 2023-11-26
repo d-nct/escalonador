@@ -26,8 +26,8 @@
 #define QUANTUM                           10                            
 
 /* Define o tempo necessário para cada tipo de I/O */
-#define IO_DISCO_TEMPO              
-#define IO_FITA_TEMPO               
-#define IO_IMPRESSORA_TEMPO          
+#define IO_DISCO_TEMPO                    30                
+#define IO_FITA_TEMPO                     15
+#define IO_IMPRESSORA_TEMPO               20
 
 #endif

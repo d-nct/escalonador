@@ -36,7 +36,7 @@ void filaInit(Fila* fila);
  * @param fila é um ponteiro para a fila.
  * @param processo é o número do processo a ser inserido na fila.
  */
-void filaInsere(Fila* fila, PCB* processo) 
+void filaInsere(Fila* fila, PCB* processo);
 
 /**
  * @brief Remove o primeiro elemento da fila.

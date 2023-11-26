@@ -19,7 +19,7 @@ Fila finalizados; // cimitério de processos
 
 int tempoSistema; // conta
 
-void escalona();
+void escalona(PCB* processo, Fila* fila);
 
 /* Métodos do Escalonador 
    ---------------------- */
