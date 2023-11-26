@@ -15,53 +15,9 @@
         - Os Processos que sofreram preempção – retornam na fila de baixa prioridade.
     */
 
-int contador = 0;
+
 
 #include "escalonador.h"
-
-void escalona() {
-    
-}
-
-void roundRobin() {
-    PCB* processo_atual;
-
-    do {
-        //Enquanto pelo menos uma das filas não estiver vazias, RODA
-        while(!(estaVazia(&alta)) || !(estaVazia(&baixa))){
-
-        // Verifica se há algum processo na fila de alta prioridade
-            if (!estaVazia(&alta)) {
-                processo_atual = filaRemove(&alta);
-                // Marca a primeira vez que o processo é executado
-                if (processo_atual->inicio == 0) {
-                    processo_atual->inicio = contador;
-                }
-
-                /* Verifica se o processo já terminou
-                if (processo_atual->tempo_restante <= 0) {
-                    processo_atual->status = SAIDA; */ 
-        
-
-                 /* Verifica se o quantum foi esgotado
-                if (rrCheckFimQuantum( SEI LA , contador)) {
-                    // Move o processo para a fila de baixa prioridade
-                    filaInsere(&baixa, processo_atual);
-
-                */
-        
-            } 
-        // Se não, V=verifica se há algum processo de baixa prioridade
-            else if (!estaVazia(&baixa)) {
-                
-            }
-
-        }
-        
-         
-        
-    } FOREVER;
-}
 
 void rrNovoProcesso(PCB novo){
     /*
@@ -73,7 +29,50 @@ void rrNovoProcesso(PCB novo){
     //filaInsere(&alta, &novo);
 }
 
-void rrCheckFimQuantum(int inicio, int atual){
-    return ((atual - inicio) % QUANTUM) == 0;
+void rrCheckFimQuantum(int atual){
+    return (atual % QUANTUM == 0);
 
 }
+
+
+void escalona() {
+    
+}
+
+void roundRobin() {
+    PCB* processo_atual;
+    int timer = 0;
+ 
+    do {
+        //Enquanto pelo menos uma das filas não estiver vazias, RODA
+        while(!(estaVazia(&alta)) || !(estaVazia(&baixa))){
+
+        // Verifica se há algum processo na fila de alta prioridade 
+            while(!estaVazia(&alta)) {
+                processo_atual = filaRemove(&alta); // tira o processo da fila de alta e salva em processo_atual
+
+                // enquanto o tempo de quantum nao acabar ou nao for requisitada nenhum I/O 
+                while(timer % QUANTUM == 1){
+                    processo_atual->tempo_restante--;
+                    timer++; // nao sei se é aqui que poe pq tem que acrescentar tempo na fila de IO tbm ne
+                }
+                // se faz IO, coloca na fila de IO e faz as operações necessárias
+                // se acaba o quantum, pega o proximo na fila de alta
+                // quanto o IO acaba coloca na fila de alta dnv
+
+                
+        
+            } 
+
+
+           // Se não, verifica se há algum processo de baixa prioridade
+         
+        }
+
+        printf("Não há processos a serem escalonados.\n");
+        
+         
+        
+    } FOREVER;
+}
+
