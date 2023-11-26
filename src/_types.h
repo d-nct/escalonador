@@ -33,7 +33,8 @@ typedef struct {
     int tempo_restante; // tempo que falta para o processo terminar 
     int tempo_cpu;
     int tempo_interno;
-    OperacaoIO* io;   // Ponteiro para lista de operações de I/O do processo, se não tiver será NULL
+    OperacaoIO* inicio_io;   // Ponteiro para o inicio da lista de operações de I/O do processo, se não tiver será NULL
+    OperacaoIO* final_io;    // Ponteiro para o final da lista de operações de I/O do processo
     int numOperacoesIO; // Número total de operações de I/O realizadas pelo processo 
 
 } PCB;

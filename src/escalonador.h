@@ -43,5 +43,6 @@ void rrNovoProcesso(PCB novo);
  */
 void roundRobin();
 
+void LeProcessos(FILE *file);
 
 #endif

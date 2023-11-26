@@ -4,40 +4,82 @@
  * @brief Contém a implementação do escalonador round robin.
  */
 
- // Na inicialização todos os processos novos entram na fila de alta prioridade
-
-    /*  Criar a função principal de escalonador
-        - Checar o Limite máximo de processos criados;
-        - Checar o Quantum;
-        - Contador geral
-        - Contador do I/O para cada tipo baseado no tempo de cada um deles
-        - Bool que indica se as filas de I/O estão vazias ou não (Criar função de checagem de I/O)
-        - Os Processos que sofreram preempção – retornam na fila de baixa prioridade.
-    */
-
- 
 
 /*  
 
 Formato do arquivo:
 
+PID TEMPO_CPU INSTANTE_IO-TIPO_IO /
 
-1 80 17-1 30-2 60-1 76-3 / 34 50 5-2 20-1 30-3 49-2
+1 80 17-1 30-2 60-1 76-3
+34 50 5-2 20-1 30-3 49-2
 
 
 
 */
 
+#include "_config.h"
+
+
+// Função para adicionar um novo nó à lista
+void addOperacaoIO(OperacaoIO *inicio_io, OperacaoIO *final_io, int inicio, int codigo) {
+    OperacaoIO *novoIO = (OperacaoIO *)malloc(sizeof(OperacaoIO));
+    novoIO->inicio = inicio;
+    switch(codigo){
+        case 1:
+            novoIO->tipo = DISCO;
+        break;
+        case 2:
+            novoIO->tipo = FITA;
+        break;
+        case 3:
+            novoIO->tipo = IMPRESSORA;
+        break;
+    }
+    novoIO->tempo_restante = 0;
+    final_io->prox = novoIO;
+    final_io = novoIO;
+    novoIO->prox = NULL; 
+}
+
+
 #include "escalonador.h"
 
-void rrNovoProcesso(PCB novo){
-    /*
+void LeProcessos(FILE *file){
 
-        LEITURA DO ARQUIVO
+    if (file == NULL) {
+        perror("Erro ao abrir o arquivo");
+        return 1;
+    }
 
-    */
+    int pid, tempo_cpu, inicio_io, codigo;
 
-    filaInsere(&alta, &novo);
+    while (fscanf(file, "%d %d", &pid, &tempo_cpu) == 2) {
+        PCB* novo = (PCB*)malloc(sizeof(PCB));
+        novo->PID = pid;
+        novo->tempo_cpu = tempo_cpu;
+        while (fscanf(file, "%d-%d", &inicio_io, &codigo) == 2) {
+            addOperacaoIO(&novo->inicio_io, &novo->final_io, inicio_io, codigo); // Adiciona o nó para o instante e código de I/O
+        }
+        filaInsere(&alta, &novo);
+    }
+
+    fclose(file);
+
+}
+
+void displayProcessos(PCB* processo) {
+    printf("PID: %d\n", processo->PID);
+    printf("Tempo CPU: %d\n", processo->tempo_cpu);
+
+    OperacaoIO* noIO = processo->inicio_io;
+    while (noIO != NULL) {
+        // se ele printar o enum TIPO vai aparecer o numero? me confundi
+        printf("Início I/O: %d, Código: %d\n", noIO->inicio, noIO->tipo); 
+        noIO = noIO->prox;
+    }
+
+    printf("\n");
 }
 
 
@@ -54,28 +96,28 @@ void escalona(PCB* processo, Fila* fila) {
         filaInsere(&baixa, processo);
     }
     // Se ele tem I/O
-    if(processo->io != NULL){
+    if(processo->inicio_io != NULL){
         // Verifica se o processo tá no tempo de pedir I/O
-        if(processo->io->inicio == processo->tempo_interno){
+        if(processo->inicio_io->inicio == processo->tempo_interno){
             processo = filaRemove(&alta);
             // switch case pra ver qual IO e por no final da fila com processo_atual->io->tipo
-            switch(processo->io->tipo){
+            switch(processo->inicio_io->tipo){
                 case DISCO:
                     filaInsere(&disco,processo);
                     processo->tempo_restante = IO_DISCO_TEMPO; 
-                    processo->io = processo->io->prox;
+                    processo->inicio_io = processo->inicio_io->prox;
                 break;
 
                 case FITA:
                     filaInsere(&fita,processo);
                     processo->tempo_restante = IO_FITA_TEMPO;
-                    processo->io = processo->io->prox;
+                    processo->inicio_io = processo->inicio_io->prox;
                 break;
 
                 case IMPRESSORA: 
                     filaInsere(&impressora,processo);
                     processo->tempo_restante = IO_IMPRESSORA_TEMPO;
-                    processo->io = processo->io->prox;
+                    processo->inicio_io = processo->inicio_io->prox;
 
                 break;
 
