@@ -40,6 +40,7 @@ typedef struct {
     int inicio;    
     int fim;      
     int tempo_cpu; //para tempo de serviço, a ser incrementado sempre que status=EXECUCAO
+    int tempo_restante // tempo que falta para o processo terminar 
     OperacaoIO* io;     // Ponteiro para lista de operações de I/O do processo, se não tiver será NULL
     int numOperacoesIO; // Número total de operações de I/O realizadas pelo processo 
 
