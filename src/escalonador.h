@@ -10,11 +10,17 @@
 #include "_types.h"
 #include "fila.h"
 
+/* Declaração de Variáveis Globais p/ Escalonador
+   ---------------------------------------------- */
 Fila alta;
 Fila baixa;
 Fila disco;
 Fila fita;
 Fila impressora;
+Fila finalizados; // cimitério de processos
+
+int tempoSistema; // contador geral do sistema
+
 
 void escalona();
 

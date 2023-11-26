@@ -41,11 +41,11 @@ void escalona() {
 
 void roundRobin() {
     PCB* processo_atual;
-    int timer = 0;
+    int timer = 0; // contador do quantum
  
     do {
         //Enquanto pelo menos uma das filas não estiver vazias, RODA
-        while(!(estaVazia(&alta)) || !(estaVazia(&baixa))){
+        while(!(estaVazia(&alta)) || !(estaVazia(&baixa)) || !(estaVazia(&disco)) || !(estaVazia(&fita)) || !(estaVazia(&impressora))){
 
         // Verifica se há algum processo na fila de alta prioridade 
             while(!estaVazia(&alta)) {
@@ -75,4 +75,3 @@ void roundRobin() {
         
     } FOREVER;
 }
-
