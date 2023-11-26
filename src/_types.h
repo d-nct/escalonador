@@ -18,10 +18,11 @@ typedef enum {
     IMPRESSORA
 } IO; 
 
-typedef struct  {
+typedef struct _OperacaoIO {
     int inicio; // inicio do tempo interno do processo em que começa a operação de I/O
     IO tipo; // tipo da operação de I/O
     int tempo_restante; // tempo restante para a conclusão da operação de I/O
+    _OperacaoIO* prox; // para encadear as operações em uma lista na PCB 
 } OperacaoIO;
 
 /* Status do processo, sem swapping */
