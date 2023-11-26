@@ -44,12 +44,11 @@ PCB* filaRemove(Fila* fila) {
         printf("Fila vazia!!!\n");
         return NULL;
     }
+    
+    tmp = fila->inicio; // pega o primeiro nó
+    primeiro = tmp->processo; // pega o primeiro processo
 
-    // pega o primeiro nó
-    tmp = fila->inicio; // aux p/ futura remoção
-    primeiro = fila->inicio->processo;
-
-    fila->inicio = fila->inicio->prox;
+    tmp = tmp->prox; // tira da fila o primeiro nó
 
     // checa se a fila ficou vazia 
     if (fila->inicio == NULL) {

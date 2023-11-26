@@ -34,11 +34,11 @@ void rrNovoProcesso(PCB novo);
  * @param inicio é quando começou a execução.
  * @return um booleano dizendo se terminou ou não .
  */
-void rrCheckFimQuantum(int atual);
 
 /** 
  * @brief Inicia o round robin
  */
 void roundRobin();
+
 
 #endif

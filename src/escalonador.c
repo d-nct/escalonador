@@ -29,49 +29,62 @@ void rrNovoProcesso(PCB novo){
     //filaInsere(&alta, &novo);
 }
 
-void rrCheckFimQuantum(int atual){
-    return (atual % QUANTUM == 0);
 
-}
+void escalona(PCB* processo) {
+    // Verifica se o tempo processo acabou
+    if(processo->tempo_restante == 0){
+        processo = filaRemove(&alta);
+        filaInsere(&baixa, processo);
+    }
+    // Se ele tem I/O
+    if(processo->io != NULL){
+        // Verifica se o processo tá no tempo de pedir I/O
+        if(processo->io->inicio == processo->tempo_interno){
+            processo = filaRemove(&alta);
+            // switch case pra ver qual IO e por no final da fila com processo_atual->io->tipo
+            // dentro do inserir na fila de I/O: tempo restante do processo vai ser o tempo que ele fica fazendo io
 
+        }
 
-void escalona() {
-    
+    }
+    processo->tempo_restante--;
+    processo->tempo_interno++;
+               
 }
 
 void roundRobin() {
     PCB* processo_atual;
-    int timer = 0;
+
+    int timer_processo = 0;
+    int timer_disco = 0;
+    int timer_fita = 0;
+    int timer_impressora = 0;
  
     do {
+
         //Enquanto pelo menos uma das filas não estiver vazias, RODA
-        while(!(estaVazia(&alta)) || !(estaVazia(&baixa))){
+        while(!(estaVazia(&alta)) || !(estaVazia(&baixa)) || !(estaVazia(&fita)) || !(estaVazia(&disco)) || !(estaVazia(&impressora))){
 
-        // Verifica se há algum processo na fila de alta prioridade 
-            while(!estaVazia(&alta)) {
-                processo_atual = filaRemove(&alta); // tira o processo da fila de alta e salva em processo_atual
-
-                // enquanto o tempo de quantum nao acabar ou nao for requisitada nenhum I/O 
-                while(timer % QUANTUM == 1){
-                    processo_atual->tempo_restante--;
-                    timer++; // nao sei se é aqui que poe pq tem que acrescentar tempo na fila de IO tbm ne
-                }
-                // se faz IO, coloca na fila de IO e faz as operações necessárias
-                // se acaba o quantum, pega o proximo na fila de alta
-                // quanto o IO acaba coloca na fila de alta dnv
-
-                
-        
+            // verifica se há algum processo na fila de alta prioridade 
+            if(!estaVazia(&alta)) {
+               processo_atual = alta.inicio;
+               escalona(processo_atual);
+               
             } 
+            // Fila de baixa
+            else if(!estaVazia(&baixa)){
+                processo_atual = baixa.inicio;
+                escalona(processo_atual);
+            }
 
+           timer_processo++;
+           timer_disco++;
+           timer_fita++;
+           timer_impressora++;
 
-           // Se não, verifica se há algum processo de baixa prioridade
-         
         }
 
         printf("Não há processos a serem escalonados.\n");
-        
-         
         
     } FOREVER;
 }
