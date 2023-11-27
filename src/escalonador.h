@@ -45,4 +45,6 @@ void roundRobin();
 
 void LeProcessos(FILE *file);
 
+void displayProcesso(PCB* processo);
+
 #endif

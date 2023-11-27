@@ -16,7 +16,7 @@ typedef struct _No {
     struct _No* prox;
 } No;
 /* Definição da estrutura da fila */
-typedef struct {
+typedef struct Fila {
     No* inicio; 
     No* fim; 
 } Fila;
@@ -38,14 +38,7 @@ void filaInit(Fila* fila);
  */
 void filaInsere(Fila* fila, PCB* processo);
 
-/**
- * @brief Remove o primeiro elemento da fila.
- * 
- * @param fila é um ponteiro para a fila.
- * @return o primeiro elemento que foi removido.
- */
 PCB* filaRemove(Fila* fila);
-
 int estaVazia(Fila *fila);
 
 #endif

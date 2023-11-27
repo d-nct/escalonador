@@ -12,7 +12,9 @@ Formato do arquivo:
 PID TEMPO_CPU INSTANTE_IO-TIPO_IO /
 
 1 80 17-1 30-2 60-1 76-3
-34 50 5-2 20-1 30-3 49-2
+2 50 5-2 20-1 30-3 49-2
+3 60 42-1
+4 10 5-2 8-3
 
 
 
@@ -68,7 +70,7 @@ void LeProcessos(FILE *file){
 
 }
 
-void displayProcessos(PCB* processo) {
+void displayProcesso(PCB* processo) {
     printf("PID: %d\n", processo->PID);
     printf("Tempo CPU: %d\n", processo->tempo_cpu);
 
@@ -80,6 +82,15 @@ void displayProcessos(PCB* processo) {
     }
 
     printf("\n");
+}
+
+void displayProcessos(Fila *fila) {
+    PCB* processo = fila->inicio->processo;
+    while(fila->fim != NULL){
+        displayProcesso(processo);
+        processo = fila->inicio->prox;
+    }
+
 }
 
 
